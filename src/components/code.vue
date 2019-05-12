@@ -36,6 +36,9 @@ export default {
                 if(data.status == 200){
                     _that.sourceData.code = data.result;
                 }
+            }, {
+                name: _that.$route.params.name,
+                type: _that.$route.params.type
             })
         }
     },

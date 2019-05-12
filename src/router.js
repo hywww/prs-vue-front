@@ -25,12 +25,12 @@ export default new Router({
           component: rightContent
         },
         {
-          path: 'parameter/:id',
+          path: 'parameter/:name',
           name: 'parameter',
           component: parameterIntro
         },
         {
-          path: 'attention/:id',
+          path: 'attention/:name',
           name: 'attention',
           component: attention
         },
@@ -50,7 +50,7 @@ export default new Router({
           component: problemList
         },
         {
-          path: 'code/:name',
+          path: 'code/:name/:type',
           name: 'code',
           component: code
         }

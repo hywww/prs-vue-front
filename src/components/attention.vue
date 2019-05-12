@@ -1,7 +1,7 @@
 <template>
-    <div v-if="sourceData.macroName">
-        <router-link class="return_prev" :to="{name:'detail', params:{name:sourceData.macroName}}">返回上一页》</router-link>
-        <section class="attention">{{sourceData.attention}}</section>
+    <div>
+        <router-link class="return_prev" :to="{name:'detail', params:{name:sourceData.MacroName}}">返回上一页》</router-link>
+        <section class="attention">{{sourceData.M_Example}}</section>
     </div>
 </template>
 <style scoped>
@@ -33,11 +33,22 @@ export default {
     methods: {
         getData : function(){
             let _that = this;
-            AJAX.default.ajaxGet(this.baseUrl+'data/'+this.$route.params.id+'.json',function(result){
-                if(result.status == 200){
-                    _that.sourceData = {...result.data};
+            // AJAX.default.ajaxGet(this.baseUrl+'data/'+this.$route.params.id+'.json',function(result){
+            //     if(result.status == 200){
+            //         _that.sourceData = {...result.data};
+            //     }
+            // })
+            AJAX.default.ajaxGet(API.default.getSyntax,
+                function(result){
+                    let data = result.data;
+                    if(data.root){
+                        _that.sourceData = {...data.result};
+                    }
+                },
+                {
+                    name: _that.$route.params.name
                 }
-            })
+            )
         }
     },
     name: 'attention'

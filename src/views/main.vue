@@ -65,7 +65,7 @@
     }
 </style>
 <script>
-import menu from '../../public/data/menu.js'
+// import menu from '../../public/data/menu.js'
 export default {
     data(){
         return{
@@ -76,16 +76,29 @@ export default {
             }
         }
     },
+    created: function(){
+        this.getList();
+    },
     mounted(){
-        this.menuData = menu.result;
+        // this.menuData = [];
         this.checkedMenu = [1]
         // for(let i of this.menuData){
         //     i.checked = false;
         // }
         // this.menuData[0].checked = true;
-        this.$router.push({name:'detail', params:{name:this.menuData[0].children[0].label}});
+        // this.$router.push({name:'detail', params:{name:this.menuData[0].children[0].label}});
     },
     methods:{
+        getList: function() {
+            let _that = this;
+            AJAX.default.ajaxGet(API.default.list,function(result){
+                let data = result.data;
+                if(data.root){
+                    _that.menuData = data.result;
+                    // _that.$router.push({name:'detail', params:{name:_that.menuData[0].children[0].label}});
+                }
+            })
+        },
         fetchData: function(name){
             // this.menuData = this.menuData.map((menuItem, menuItemIndex) => ({...menuItem, checked: menuItemIndex == index}))
             this.$router.push({name:'detail', params:{name:name}})

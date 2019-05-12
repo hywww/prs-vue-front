@@ -1,18 +1,12 @@
 <template>
-    <section class="parameterIntro" v-if="sourceData.macroName">
-        <router-link class="return_prev" :to="{name:'detail', params:{name:sourceData.macroName}}">返回上一页》</router-link>
+    <section class="parameterIntro">
+        <router-link class="return_prev" :to="{name:'detail', params:{name:macroName}}">返回上一页》</router-link>
         <table>
             <tr>
-                <th>参数功能分类</th>
-                <th>宏参数</th>
-                <th>参数说明</th>
-                <th>默认值</th>
+                <th v-for="(item,index) in parameterKeys" :key="index">{{item}}</th>
             </tr>
-            <tr v-for="item in sourceData.parameterIntro" :key="item.name">
-                <td>{{item.kinds}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.default}}</td>
+            <tr v-for="(item,idx) in parameterList" :key="idx">
+                <td v-for="(i,index) in parameterKeys" :key="index">{{item[i]}}</td>
             </tr>
         </table>  
     </section>
@@ -37,8 +31,10 @@
 export default {
     data(){
         return{
-            sourceData: {},
-            baseUrl: process.env.BASE_URL
+            parameterList: [],
+            parameterKeys: [],
+            macroName: this.$route.params.name
+            // baseUrl: process.env.BASE_URL
         }
     },
     watch: {
@@ -52,11 +48,24 @@ export default {
     methods: {
         getData : function(){
             let _that = this;
-            AJAX.default.ajaxGet(this.baseUrl+'data/'+this.$route.params.id+'.json',function(result){
-                if(result.status == 200){
-                    _that.sourceData = {...result.data};
+            // AJAX.default.ajaxGet(this.baseUrl+'data/'+this.$route.params.id+'.json',function(result){
+            //     if(result.status == 200){
+            //         _that.sourceData = {...result.data};
+            //     }
+            // })
+            AJAX.default.ajaxGet(API.default.getParam,
+                function(result){
+                    let data = result.data;
+                    if(data.root){
+                        _that.parameterList = {...data.result};
+                        _that.parameterKeys = data.result[0] && Object.keys(data.result[0]);
+                        console.log(_that.parameterKeys)
+                    }
+                },
+                {
+                    name: _that.$route.params.name
                 }
-            })
+            )
         }
     },
     name: 'parameterIntro'
