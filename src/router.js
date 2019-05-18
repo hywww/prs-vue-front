@@ -50,7 +50,7 @@ export default new Router({
           component: problemList
         },
         {
-          path: 'code/:name/:type',
+          path: 'code/:name/:type/:version',
           name: 'code',
           component: code
         }

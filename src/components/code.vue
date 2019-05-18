@@ -38,7 +38,8 @@ export default {
                 }
             }, {
                 name: _that.$route.params.name,
-                type: _that.$route.params.type
+                type: _that.$route.params.type,
+                version: _that.$route.params.version
             })
         }
     },

@@ -57,7 +57,7 @@
                 <span>可以在此直接修改测试参数条件，然后提交运行</span>
             </p>
             <p>
-                <router-link :to="{name:'code','params':{id:sourceData.MacroName, type: sourceData.Macro_Cat}}">源码</router-link> &nbsp;
+                <router-link :to="{name:'code','params':{id:sourceData.MacroName, type: sourceData.Macro_Cat, version: sourceData.Version}}">源码</router-link> &nbsp;
                 <span>点此迅速查看源码</span>
             </p>
             <p>
