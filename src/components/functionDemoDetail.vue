@@ -1,12 +1,7 @@
 <template>
     <div class="content">
         <router-link class="return_prev" :to="{name:'detail', params:{name:sourceData.macroName}}">返回上一页》</router-link>
-        <section v-for="item of sourceData.functionDemo">
-            <h3>{{item.title}}</h3>
-            <p>{{item.content}}</p>
-            <p><img v-bind:src="`${baseUrl}images/`+item.img"></p>
-        </section>
-        
+        <iframe src="http://pv33lxmbm.bkt.clouddn.com/dsoutput.pdf" :style="styles" class="iframe-pdf"></iframe>
     </div>
 </template>
 <style scoped>
@@ -16,33 +11,35 @@
 .return_prev{
     font-size: 12px;
 }
+.iframe-pdf {
+  margin-top: 20px;
+  width: 100%;
+}
 </style>
 <script>
 export default {
     name:'functionDemoDetail',
     data(){
         return{
-            sourceData: {},
-            baseUrl: process.env.BASE_URL            
+            sourceData: {
+              macroName: this.$route.params.name
+            },
+            baseUrl: process.env.BASE_URL,
+            styles: {
+              height: '500px'
+            },         
         }
     },
     watch: {
         $route: function(mew, old){
-            this.getData();
+            // this.getData();
         }
     },
     created(){
-        this.getData();
+      this.styles.height = window.screen.height - 240 + 'px';
+        // this.getData();
     },
     methods: {
-        getData : function(){
-            let _that = this;
-            AJAX.default.ajaxGet(this.baseUrl+'data/'+this.$route.params.name+'.json',function(result){
-                if(result.status == 200){
-                    _that.sourceData = {...result.data};
-                }
-            })
-        }
     },
 }
 </script>
