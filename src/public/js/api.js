@@ -5,6 +5,7 @@ export default {
     detail: host + '/get/list/detail',
     getSyntax: host + '/get/list/syntax',
     getParam: host + '/get/list/param',
+    getHistory: host + '/get/list/history',
     addQuestion: host + '/save/feedback/item',
     addResponse: host + '/save/add/responseItem',
     problemList: host + '/get/feedback/list',
