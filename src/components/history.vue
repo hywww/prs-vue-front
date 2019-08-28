@@ -3,7 +3,7 @@
         <router-link class="return_prev" :to="{name:'detail', params:{name:macroName}}">返回上一页》</router-link>
         <h2>该宏版本历史列表如下：</h2>
         <table>
-            <tr v-for="(item,idx) in parameterList_" :key="idx"  onclick="window.open('file:///E:/js/%E5%AE%8F%E5%B9%B3%E5%8F%B0%E7%AE%A1%E7%90%86/node/prs-vue-front-master/src/components/addtitle-v1-2.txt');">
+            <tr v-for="(item,idx) in parameterList_" :key="idx"  v-on:click="showHistoryDetail(item)">
                 <td v-for="(i,index) in 1" :key="index">
                 <div>
                 {{parameterList}}
@@ -12,6 +12,10 @@
                 </td>
             </tr>
         </table>  
+
+        <el-dialog title="版本详情" :visible.sync="dialogVisible">
+          <pre class="code">{{historyVersionCode}}</pre>
+        </el-dialog>
     </section>
 </template>
 <style scoped>
@@ -42,8 +46,9 @@ export default {
         return{
             parameterList_: [],
             parameterKeys: [],
-            macroName: this.$route.params.name
-            // baseUrl: process.env.BASE_URL
+            macroName: this.$route.params.name,
+            historyVersionCode: '', // 存放历史某版本详情
+            dialogVisible: false, // 是否显示弹窗
         }
     },
     watch: {
@@ -75,6 +80,24 @@ export default {
                     name: _that.$route.params.name
                 }
             )
+        },
+        // 显示版本详情弹窗
+        showHistoryDetail: function(data) {
+          let _that = this;
+          AJAX.default.ajaxGet(API.default.getHistoryDetail,
+              function(result){
+                let data = result.data;
+                if(data.status == 200){
+                  _that.historyVersionCode = data.result;
+                  _that.dialogVisible = true;
+                } else {
+                  alert('请求失败');
+                }
+              },
+              {
+                name: data['macro_v']
+              }
+          )
         }
     },
     name: 'history'
