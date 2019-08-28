@@ -34,7 +34,7 @@
         </header>
         <section class="list"> 
             <p>
-                <a href="javascript:void(0)" v-on:click="alert()">版本历史</a> &nbsp;
+                <router-link :to="{name:'history','params':{id:sourceData.MacroName}}">版本历史</router-link> &nbsp;
                 <span>点击查看之前所有版本信息</span>
             </p>            
 
