@@ -46,7 +46,7 @@ export default new Router({
           component: functionDemo
         },
         {
-          path: 'function/detail/:name',
+          path: 'functionDemoDetail/:name',
           name: 'functionDemoDetail',
           component: functionDemoDetail
         },
