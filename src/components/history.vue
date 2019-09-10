@@ -6,7 +6,6 @@
             <tr v-for="(item,idx) in parameterList_" :key="idx"  v-on:click="showHistoryDetail(item)">
                 <td v-for="(i,index) in 1" :key="index">
                 <div>
-                {{parameterList}}
                 {{item['macro_v']}}
                 </div>
                 </td>
