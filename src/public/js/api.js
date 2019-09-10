@@ -6,6 +6,7 @@ export default {
     getSyntax: host + '/get/list/syntax',
     getParam: host + '/get/list/param',
     getHistory: host + '/get/list/history',
+    getLink: host + '/get/list/functionDemoDetail',
     getHistoryDetail: host + '/get/history/detail',
     addQuestion: host + '/save/feedback/item',
     addResponse: host + '/save/add/responseItem',
